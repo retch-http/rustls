@@ -49,7 +49,6 @@ use crate::msgs::handshake::{CertificatePayloadTls13, CompressedCertificatePaylo
 /// by crate features.
 pub fn default_cert_decompressors() -> &'static [&'static dyn CertDecompressor] {
     &[
-        #[cfg(feature = "brotli")]
         BROTLI_DECOMPRESSOR,
         #[cfg(feature = "zlib")]
         ZLIB_DECOMPRESSOR,
@@ -74,7 +73,6 @@ pub trait CertDecompressor: Debug + Send + Sync {
 /// by crate features.
 pub fn default_cert_compressors() -> &'static [&'static dyn CertCompressor] {
     &[
-        #[cfg(feature = "brotli")]
         BROTLI_COMPRESSOR,
         #[cfg(feature = "zlib")]
         ZLIB_COMPRESSOR,
@@ -186,7 +184,7 @@ mod feat_zlib_rs {
 #[cfg(feature = "zlib")]
 pub use feat_zlib_rs::{ZLIB_COMPRESSOR, ZLIB_DECOMPRESSOR};
 
-#[cfg(feature = "brotli")]
+
 mod feat_brotli {
     use std::io::{Cursor, Write};
 
@@ -263,7 +261,6 @@ mod feat_brotli {
     const QUALITY_SLOW: u32 = 11;
 }
 
-#[cfg(feature = "brotli")]
 pub use feat_brotli::{BROTLI_COMPRESSOR, BROTLI_DECOMPRESSOR};
 
 /// An LRU cache for compressions.
@@ -457,7 +454,6 @@ mod tests {
     }
 
     #[test]
-    #[cfg(feature = "brotli")]
     fn test_brotli() {
         test_compressor(BROTLI_COMPRESSOR, BROTLI_DECOMPRESSOR);
     }

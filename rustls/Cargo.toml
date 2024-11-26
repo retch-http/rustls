@@ -19,8 +19,8 @@ rustversion = { version = "1.0.6", optional = true }
 
 [dependencies]
 aws-lc-rs = { version = "1.9", optional = true, default-features = false, features = ["aws-lc-sys", "prebuilt-nasm"] }
-brotli = { version = "7", optional = true, default-features = false, features = ["std"] }
-brotli-decompressor = { version = "4.0.1", optional = true } # 4.0.1 required for panic fix
+brotli = { version = "7", default-features = false, features = ["std"] }
+brotli-decompressor = { version = "4.0.1" } # 4.0.1 required for panic fix
 hashbrown = { version = "0.15", optional = true, default-features = false, features = ["default-hasher", "inline-more"] }
 log = { version = "0.4.8", optional = true }
 # remove once our MSRV is >= 1.70
@@ -38,7 +38,6 @@ std = ["webpki/std", "pki-types/std", "once_cell/std"]
 logging = ["log"]
 aws_lc_rs = ["dep:aws-lc-rs", "webpki/aws_lc_rs"]
 aws-lc-rs = ["aws_lc_rs"] # Alias because Cargo features commonly use `-`
-brotli = ["dep:brotli", "dep:brotli-decompressor", "std"]
 ring = ["dep:ring", "webpki/ring"]
 custom-provider = []
 tls12 = []
